@@ -1,59 +1,78 @@
-
 buildscript {
-    repositories {
-        jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
-    }
+	repositories {
+		jcenter()
+		maven {
+			name = "forge"
+			url = "http://files.minecraftforge.net/maven"
+		}
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+	}
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = mc_version + "-" + mod_version
-group= "org.squiddev"
+group = "org.squiddev"
 archivesBaseName = "unborked"
 
 minecraft {
-    version = "${project.mc_version}-${project.forge_version}"
-    runDir = "run"
-    mappings = "snapshot_20160518"
+	version = "${project.mc_version}-${project.forge_version}"
+	runDir = "run"
+	mappings = "snapshot_20160518"
+
+	replace '${mod_version}', project.mod_version
+	replace '${mc_version}', project.mc_version
+}
+
+jar {
+	manifest {
+		attributes(
+			'FMLCorePlugin': 'org.squiddev.unborked.UnborkedPlugin'
+		)
+	}
 }
 
 repositories {
 	ivy {
 		artifactPattern "http://addons-origin.cursecdn.com/files/2311/39/[module][revision](.[ext])"
 	}
+
+	maven {
+		name = "squiddev"
+		url = "https://dl.bintray.com/squiddev/maven"
+	}
+}
+
+configurations {
+	shade
+	compile.extendsFrom shade
 }
 
 dependencies {
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    compile "ComputerCraft:ComputerCraft:1.80pr0"
+	// Toggle this on or off for developing.
+	// Use https://github.com/tterrag1098/BON2 to repatch
+	// compile "ComputerCraft:ComputerCraft:1.80pr0"
+
+	shade('org.squiddev:Patcher:1.2.3') { exclude group: 'org.ow2.asm' }
 }
 
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "mod_version", project.mod_version
-    inputs.property "mc_version", project.mc_version
+processResources {
+	// this will ensure that this task is redone when the versions change.
+	inputs.property "mod_version", project.mod_version
+	inputs.property "mc_version", project.mc_version
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':mod_version, 'mcversion':mc_version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
+	// replace stuff in mcmod.info, nothing else
+	from(sourceSets.main.resources.srcDirs) {
+		include 'mcmod.info'
+
+		// replace version and mcversion
+		expand 'version': mod_version, 'mcversion': mc_version
+	}
+
+	// copy everything else, thats not the mcmod.info
+	from(sourceSets.main.resources.srcDirs) {
+		exclude 'mcmod.info'
+	}
 }
