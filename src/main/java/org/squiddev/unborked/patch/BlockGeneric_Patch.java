@@ -52,4 +52,14 @@ public class BlockGeneric_Patch extends Block {
 			return NULL_AABB;
 		}
 	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn) {
+		TileEntity tile = world.getTileEntity(pos);
+		if (tile != null && tile instanceof TileGeneric) {
+			TileGeneric generic = (TileGeneric) tile;
+			generic.onNeighbourChange();
+		}
+	}
 }
