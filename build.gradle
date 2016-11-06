@@ -1,0 +1,59 @@
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = mc_version + "-" + mod_version
+group= "org.squiddev"
+archivesBaseName = "unborked"
+
+minecraft {
+    version = "${project.mc_version}-${project.forge_version}"
+    runDir = "run"
+    mappings = "snapshot_20160518"
+}
+
+repositories {
+	ivy {
+		artifactPattern "http://addons-origin.cursecdn.com/files/2311/39/[module][revision](.[ext])"
+	}
+}
+
+dependencies {
+    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
+    // except that these dependencies get remapped to your current MCP mappings
+    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+    compile "ComputerCraft:ComputerCraft:1.80pr0"
+}
+
+processResources
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "mod_version", project.mod_version
+    inputs.property "mc_version", project.mc_version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':mod_version, 'mcversion':mc_version
+    }
+        
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
