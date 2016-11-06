@@ -15,7 +15,10 @@ public class UnborkedTransformer implements IClassTransformer {
 			"dan200.computercraft.shared.common.BlockGeneric",
 			"org.squiddev.unborked.patch.BlockGeneric_Patch"
 		));
-
+		patches.add(new ClassMerger(
+			"dan200.computercraft.shared.common.TileGeneric",
+			"org.squiddev.unborked.patch.TileGeneric_Patch"
+		));
 		patches.add(new ClassMerger(
 			"dan200.computercraft.shared.peripheral.modem.TileAdvancedModem",
 			"org.squiddev.unborked.patch.TileAdvancedModem_Patch"

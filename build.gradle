@@ -51,9 +51,8 @@ configurations {
 }
 
 dependencies {
-	// Toggle this on or off for developing.
-	// Use https://github.com/tterrag1098/BON2 to repatch
-	// compile "ComputerCraft:ComputerCraft:1.80pr0"
+	provided files("lib/ComputerCraft1.80pr0.jar")
+	runtime "ComputerCraft:ComputerCraft:1.80pr0"
 
 	shade('org.squiddev:Patcher:1.2.3') { exclude group: 'org.ow2.asm' }
 }

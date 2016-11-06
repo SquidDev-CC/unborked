@@ -59,7 +59,7 @@ $RECYCLE.BIN/
 /run-*/
 /build-*/
 /bin/
-/libs/ # Include libs manually
+/lib/ # Include libs manually
 
 # Gradle
 # =========================
