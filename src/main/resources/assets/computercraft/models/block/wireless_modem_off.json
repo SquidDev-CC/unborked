@@ -1,7 +1,0 @@
-{
-    "parent": "computercraft:block/modem",
-    "textures": {
-        "front": "computercraft:blocks/wirelessModemFace",
-        "back": "computercraft:blocks/modemBack"
-    }
-}

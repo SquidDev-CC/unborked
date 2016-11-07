@@ -1,8 +1,0 @@
-{
-    "parent": "block/orientable",
-    "textures": {
-        "front": "computercraft:blocks/diskDriveFront",
-        "side": "computercraft:blocks/diskDriveSide",
-        "top": "computercraft:blocks/diskDriveTop"
-    }
-}
