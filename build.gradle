@@ -26,14 +26,6 @@ minecraft {
 	replace '${mc_version}', project.mc_version
 }
 
-jar {
-	manifest {
-		attributes(
-			'FMLCorePlugin': 'org.squiddev.unborked.UnborkedPlugin'
-		)
-	}
-}
-
 repositories {
 	ivy {
 		artifactPattern "http://addons-origin.cursecdn.com/files/2311/39/[module][revision](.[ext])"
@@ -55,6 +47,17 @@ dependencies {
 	runtime "ComputerCraft:ComputerCraft:1.80pr0"
 
 	shade('org.squiddev:Patcher:1.2.3') { exclude group: 'org.ow2.asm' }
+}
+
+jar {
+	manifest {
+		attributes(
+			'FMLCorePlugin': 'org.squiddev.unborked.UnborkedPlugin',
+			'FMLCorePluginContainsFMLMod': 'true',
+		)
+	}
+
+	from(configurations.shade.collect { it.isDirectory() ? it : zipTree(it) })
 }
 
 processResources {
