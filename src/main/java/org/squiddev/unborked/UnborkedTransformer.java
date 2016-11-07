@@ -23,6 +23,10 @@ public class UnborkedTransformer implements IClassTransformer {
 			"dan200.computercraft.shared.peripheral.modem.TileAdvancedModem",
 			"org.squiddev.unborked.patch.TileAdvancedModem_Patch"
 		));
+		patches.add(new ClassMerger(
+			"dan200.computercraft.shared.computer.blocks.TileComputerBase",
+			"org.squiddev.unborked.patch.TileComputerBase_Patch"
+		));
 
 		Logger.instance = new Logger() {
 			@Override
