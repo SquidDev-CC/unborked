@@ -5,15 +5,18 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
-/**
- * Ensures the initial TE update packet is sent
- */
 public class TileGeneric_Patch extends TileEntity {
+	/**
+	 * Contain the NBT data in the initial update tag
+	 */
 	@Override
 	public NBTTagCompound getUpdateTag() {
 		return writeToNBT(new NBTTagCompound());
 	}
 
+	/**
+	 * Force sending a block update to the client
+	 */
 	public final void updateBlock() {
 		markDirty();
 		BlockPos pos = getPos();

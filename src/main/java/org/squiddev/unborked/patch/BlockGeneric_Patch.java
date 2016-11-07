@@ -15,16 +15,17 @@ import org.squiddev.patcher.visitors.MergeVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Fixes collisions to correctly offset the AABB.
- * Correctly sets the bounding box.
- */
 public class BlockGeneric_Patch extends Block {
 	@MergeVisitor.Stub
 	public BlockGeneric_Patch(Material materialIn) {
 		super(materialIn);
 	}
 
+	/**
+	 * Fixes collisions with entities not occurring. This was because the
+	 * bounding box wasn't being offset by the block position, and so would
+	 * only collide if the block was at (0, 0, 0).
+	 */
 	@Override
 	@SuppressWarnings("deprecation")
 	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> list, Entity entity) {
@@ -41,6 +42,9 @@ public class BlockGeneric_Patch extends Block {
 		}
 	}
 
+	/**
+	 * Fixes the mouse-over selection box being the full AABB rather than the TE's bounds.
+	 */
 	@Override
 	@SuppressWarnings("deprecation")
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -53,6 +57,9 @@ public class BlockGeneric_Patch extends Block {
 		}
 	}
 
+	/**
+	 * Uses the correct neighbor changed method, ensuring redstone is correctly updated.
+	 */
 	@Override
 	@SuppressWarnings("deprecation")
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn) {
@@ -61,5 +68,13 @@ public class BlockGeneric_Patch extends Block {
 			TileGeneric generic = (TileGeneric) tile;
 			generic.onNeighbourChange();
 		}
+	}
+
+	/**
+	 * Uses the correct neighbor changed method, ensuring that turtle's don't
+	 * detect peripherals when moving.
+	 */
+	@Override
+	public final void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighborPos) {
 	}
 }

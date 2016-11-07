@@ -6,7 +6,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 
 /**
- * Fixes the modem to use the correct property state
+ * Fixes the advanced modem to use the correct property state. Before
+ * it was using BlockPeripheral's FACING property instead.
  */
 public class TileAdvancedModem_Patch extends TileAdvancedModem {
 	public EnumFacing getDirection() {

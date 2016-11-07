@@ -27,6 +27,10 @@ public class UnborkedTransformer implements IClassTransformer {
 			"dan200.computercraft.shared.computer.blocks.TileComputerBase",
 			"org.squiddev.unborked.patch.TileComputerBase_Patch"
 		));
+		patches.add(new ClassMerger(
+			"dan200.computercraft.shared.turtle.core.TurtleBrain",
+			"org.squiddev.unborked.patch.TurtleBrain_Patch"
+		));
 
 		Logger.instance = new Logger() {
 			@Override
