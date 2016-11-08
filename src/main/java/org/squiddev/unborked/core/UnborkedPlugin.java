@@ -1,4 +1,4 @@
-package org.squiddev.unborked;
+package org.squiddev.unborked.core;
 
 import com.google.common.eventbus.EventBus;
 import net.minecraftforge.fml.common.DummyModContainer;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @IFMLLoadingPlugin.TransformerExclusions({
 	// Unborked
-	"org.squiddev.unborked.",
+	"org.squiddev.unborked.core.",
 	// Shared
 	"org.squiddev.patcher",
 })
@@ -40,12 +40,12 @@ public class UnborkedPlugin implements IFMLLoadingPlugin {
 
 	@Override
 	public String[] getASMTransformerClass() {
-		return new String[]{"org.squiddev.unborked.UnborkedTransformer"};
+		return new String[]{"org.squiddev.unborked.core.UnborkedTransformer"};
 	}
 
 	@Override
 	public String getModContainerClass() {
-		return "org.squiddev.unborked.UnborkedPlugin$ModContainer";
+		return "org.squiddev.unborked.core.UnborkedPlugin$ModContainer";
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class UnborkedPlugin implements IFMLLoadingPlugin {
 			md.modId = "unborked_core";
 			md.name = "Unborked Core";
 			md.authorList = Collections.singletonList("SquidDev");
-			md.description = "Makes ComputerCraft less borked for 1.9.4";
+			md.description = "Makes ComputerCraft ${cc_version} less buggy for ${mc_version}";
 			md.version = "${mod_version}";
 		}
 

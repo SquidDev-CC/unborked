@@ -1,4 +1,4 @@
-package org.squiddev.unborked.patch;
+package org.squiddev.unborked.core.patch;
 
 import dan200.computercraft.shared.computer.blocks.BlockComputerBase;
 import dan200.computercraft.shared.turtle.blocks.TileTurtle;

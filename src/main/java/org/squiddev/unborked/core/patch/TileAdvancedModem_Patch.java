@@ -1,4 +1,4 @@
-package org.squiddev.unborked.patch;
+package org.squiddev.unborked.core.patch;
 
 import dan200.computercraft.shared.peripheral.modem.BlockAdvancedModem;
 import dan200.computercraft.shared.peripheral.modem.TileAdvancedModem;
@@ -11,11 +11,11 @@ import net.minecraft.util.EnumFacing;
  */
 public class TileAdvancedModem_Patch extends TileAdvancedModem {
 	public EnumFacing getDirection() {
-		IBlockState state = this.getBlockState();
-		return (EnumFacing) state.getValue(BlockAdvancedModem.Properties.FACING);
+		IBlockState state = getBlockState();
+		return state.getValue(BlockAdvancedModem.Properties.FACING);
 	}
 
 	public void setDirection(EnumFacing dir) {
-		this.setBlockState(this.getBlockState().withProperty(BlockAdvancedModem.Properties.FACING, dir));
+		setBlockState(getBlockState().withProperty(BlockAdvancedModem.Properties.FACING, dir));
 	}
 }

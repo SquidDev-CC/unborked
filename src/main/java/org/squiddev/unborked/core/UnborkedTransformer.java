@@ -1,4 +1,4 @@
-package org.squiddev.unborked;
+package org.squiddev.unborked.core;
 
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.squiddev.patcher.Logger;
@@ -13,24 +13,26 @@ public class UnborkedTransformer implements IClassTransformer {
 	public UnborkedTransformer() {
 		patches.add(new ClassMerger(
 			"dan200.computercraft.shared.common.BlockGeneric",
-			"org.squiddev.unborked.patch.BlockGeneric_Patch"
+			"org.squiddev.unborked.core.patch.BlockGeneric_Patch"
 		));
 		patches.add(new ClassMerger(
 			"dan200.computercraft.shared.common.TileGeneric",
-			"org.squiddev.unborked.patch.TileGeneric_Patch"
+			"org.squiddev.unborked.core.patch.TileGeneric_Patch"
 		));
 		patches.add(new ClassMerger(
 			"dan200.computercraft.shared.peripheral.modem.TileAdvancedModem",
-			"org.squiddev.unborked.patch.TileAdvancedModem_Patch"
-		));
-		patches.add(new ClassMerger(
-			"dan200.computercraft.shared.computer.blocks.TileComputerBase",
-			"org.squiddev.unborked.patch.TileComputerBase_Patch"
+			"org.squiddev.unborked.core.patch.TileAdvancedModem_Patch"
 		));
 		patches.add(new ClassMerger(
 			"dan200.computercraft.shared.turtle.core.TurtleBrain",
-			"org.squiddev.unborked.patch.TurtleBrain_Patch"
+			"org.squiddev.unborked.core.patch.TurtleBrain_Patch"
 		));
+		patches.add(new ClassMerger(
+			"dan200.computercraft.shared.turtle.upgrades.TurtleTool",
+			"org.squiddev.unborked.core.patch.TurtleTool_Patch"
+		));
+
+		patches.add(new ItemCableSounds());
 
 		Logger.instance = new Logger() {
 			@Override

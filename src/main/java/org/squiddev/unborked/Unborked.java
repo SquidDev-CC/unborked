@@ -1,47 +1,33 @@
 package org.squiddev.unborked;
 
-import dan200.computercraft.ComputerCraft;
-import dan200.computercraft.shared.media.items.ItemDiskLegacy;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
- * Empty class to ensure textures get loaded correctly
+ * Doesn't do much. Partially here to do some client side editions,
+ * partially to ensure our resource pack is loaded.
  */
 @Mod(
 	modid = "unborked", name = "Unborked",
 	version = "${mod_version}",
-	dependencies = "required-after:ComputerCraft@[1.80pr0,);after:CCTurtle"
+	dependencies = "required-after:ComputerCraft@[${cc_version},);after:CCTurtle"
 )
 public class Unborked {
+	@SidedProxy(
+		serverSide = "org.squiddev.unborked.ProxyServer",
+		clientSide = "org.squiddev.unborked.ProxyClient"
+	)
+	public static ProxyServer proxy;
+
 	@Mod.EventHandler
-	@SideOnly(Side.CLIENT)
+	public void preInit(FMLPreInitializationEvent event) {
+		proxy.preInit();
+	}
+
+	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		setupColors();
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void setupColors() {
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new DiskColorHandler(ComputerCraft.Items.disk), ComputerCraft.Items.disk);
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new DiskColorHandler(ComputerCraft.Items.diskExpanded), ComputerCraft.Items.diskExpanded);
-	}
-
-	@SideOnly(Side.CLIENT)
-	private static class DiskColorHandler implements IItemColor {
-		private final ItemDiskLegacy disk;
-
-		private DiskColorHandler(ItemDiskLegacy disk) {
-			this.disk = disk;
-		}
-
-		@Override
-		public int getColorFromItemstack(ItemStack stack, int layer) {
-			return layer == 0 ? 0xFFFFFF : disk.getColor(stack);
-		}
+		proxy.init();
 	}
 }

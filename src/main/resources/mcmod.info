@@ -1,0 +1,17 @@
+[
+	{
+		"modid": "unborked",
+		"name": "Unborked",
+		"description": "Makes ComputerCraft ${cc_version} less buggy for ${mc_version}",
+		"version": "${mod_version}",
+		"mcversion": "${mc_version}",
+		"url": "https://github.com/SquidDev-CC/CCTweaks",
+		"credits": "Dan200 for ComputerCraft",
+		"authorList": [
+			"SquidDev"
+		],
+		"dependencies": [
+			"ComputerCraft"
+		]
+	}
+]

@@ -11,9 +11,14 @@ buildscript {
 	}
 }
 
+plugins {
+	id "com.jfrog.bintray" version "1.4"
+}
+
+apply plugin: 'maven-publish'
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = mc_version + "-" + mod_version
+version = mc_version + "-" + cc_version + "-" + mod_version
 group = "org.squiddev"
 archivesBaseName = "unborked"
 
@@ -24,6 +29,7 @@ minecraft {
 
 	replace '${mod_version}', project.mod_version
 	replace '${mc_version}', project.mc_version
+	replace '${cc_version}', project.cc_version
 }
 
 repositories {
@@ -43,8 +49,8 @@ configurations {
 }
 
 dependencies {
-	provided files("lib/ComputerCraft1.80pr0.jar")
-	runtime "ComputerCraft:ComputerCraft:1.80pr0"
+	provided files("lib/ComputerCraft${project.cc_version}.jar")
+	runtime "ComputerCraft:ComputerCraft:${project.cc_version}"
 
 	shade('org.squiddev:Patcher:1.2.3') { exclude group: 'org.ow2.asm' }
 }
@@ -52,7 +58,7 @@ dependencies {
 jar {
 	manifest {
 		attributes(
-			'FMLCorePlugin': 'org.squiddev.unborked.UnborkedPlugin',
+			'FMLCorePlugin': 'org.squiddev.unborked.core.UnborkedPlugin',
 			'FMLCorePluginContainsFMLMod': 'true',
 		)
 	}
@@ -64,17 +70,67 @@ processResources {
 	// this will ensure that this task is redone when the versions change.
 	inputs.property "mod_version", project.mod_version
 	inputs.property "mc_version", project.mc_version
+	inputs.property "cc_version", project.cc_version
 
 	// replace stuff in mcmod.info, nothing else
 	from(sourceSets.main.resources.srcDirs) {
 		include 'mcmod.info'
 
 		// replace version and mcversion
-		expand 'version': mod_version, 'mcversion': mc_version
+		expand 'mod_version': mod_version, 'mc_version': mc_version, 'cc_version': cc_version
 	}
 
 	// copy everything else, thats not the mcmod.info
 	from(sourceSets.main.resources.srcDirs) {
 		exclude 'mcmod.info'
 	}
+}
+
+gradle.projectsEvaluated {
+	tasks.withType(JavaCompile) {
+		options.compilerArgs << "-Xlint"
+	}
+}
+
+bintray {
+	user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+	key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+	publications = ['mavenJava']
+	pkg {
+		repo = 'maven'
+		name = 'CCTweaks'
+		licenses = ['MIT']
+		vcsUrl = 'https://github.com/SquidDev-CC/CCTweaks'
+
+		version {
+			name = project.version
+			desc = 'Random additions to ComputerCraft'
+			released = new Date()
+			vcsTag = 'v' + project.version
+		}
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact jar
+			artifact devJar
+		}
+	}
+}
+
+// Build a non-obfuscated jar
+task devJar(type: Jar) {
+	manifest {
+		attributes(
+			'FMLCorePlugin': 'org.squiddev.unborked.core.UnborkedPlugin',
+			'FMLCorePluginContainsFMLMod': 'true',
+		)
+	}
+
+	from sourceSets.main.output
+	from(configurations.shade.collect { it.isDirectory() ? it : zipTree(it) })
+
+	classifier = 'dev'
 }
