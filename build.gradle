@@ -98,13 +98,13 @@ bintray {
 	publications = ['mavenJava']
 	pkg {
 		repo = 'maven'
-		name = 'CCTweaks'
+		name = 'unborked'
 		licenses = ['MIT']
 		vcsUrl = 'https://github.com/SquidDev-CC/CCTweaks'
 
 		version {
 			name = project.version
-			desc = 'Random additions to ComputerCraft'
+			desc = "Makes ComputerCraft ${project.cc_version} less buggy for ${project.mc_version}"
 			released = new Date()
 			vcsTag = 'v' + project.version
 		}

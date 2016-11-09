@@ -18,8 +18,9 @@ public class TileGeneric_Patch extends TileEntity {
 		return tag;
 	}
 
+	@Override
 	public void handleUpdateTag(NBTTagCompound tag) {
-		super.readFromNBT(tag);
+		super.handleUpdateTag(tag);
 		readDescription(tag);
 	}
 
