@@ -53,7 +53,7 @@ public class BlockGeneric_Patch extends Block {
 			TileGeneric generic = (TileGeneric) tile;
 			return generic.getBounds();
 		} else {
-			return NULL_AABB;
+			return FULL_BLOCK_AABB;
 		}
 	}
 
