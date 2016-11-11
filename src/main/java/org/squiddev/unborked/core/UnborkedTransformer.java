@@ -31,6 +31,10 @@ public class UnborkedTransformer implements IClassTransformer {
 			"dan200.computercraft.shared.turtle.upgrades.TurtleTool",
 			"org.squiddev.unborked.core.patch.TurtleTool_Patch"
 		));
+		patches.add(new ClassMerger(
+			"dan200.computercraft.shared.util.RedstoneUtil",
+			"org.squiddev.unborked.core.patch.RedstoneUtil_Patch"
+		));
 
 		patches.add(new ItemCableSounds());
 
