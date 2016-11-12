@@ -24,6 +24,7 @@ import java.util.Map;
 public class UnborkedPlugin implements IFMLLoadingPlugin {
 	public static final Logger logger = LogManager.getLogger("unborked");
 
+	public static final boolean DO_DUMP = false;
 	public static File minecraftDir;
 	public static File dump;
 
@@ -32,7 +33,7 @@ public class UnborkedPlugin implements IFMLLoadingPlugin {
 			minecraftDir = (File) FMLInjectionData.data()[6];
 
 			dump = new File(new File(minecraftDir, "asm"), "unborked");
-			if (!dump.exists() && !dump.mkdirs()) {
+			if (DO_DUMP && !dump.exists() && !dump.mkdirs()) {
 				logger.error("Cannot create ASM dump folder");
 			}
 		}

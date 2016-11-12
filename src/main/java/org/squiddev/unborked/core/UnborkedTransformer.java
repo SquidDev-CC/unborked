@@ -72,7 +72,9 @@ public class UnborkedTransformer implements IClassTransformer {
 		}
 	}
 
-	public void writeDump(String className, byte[] bytes) {
+	private void writeDump(String className, byte[] bytes) {
+		if (!UnborkedPlugin.DO_DUMP) return;
+
 		File file = new File(UnborkedPlugin.dump, className.replace('.', '/') + ".class");
 		File directory = file.getParentFile();
 		if (directory.exists() || directory.mkdirs()) {
