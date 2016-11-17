@@ -35,6 +35,10 @@ public class UnborkedTransformer implements IClassTransformer {
 			"dan200.computercraft.shared.util.RedstoneUtil",
 			"org.squiddev.unborked.core.patch.RedstoneUtil_Patch"
 		));
+		patches.add(new ClassMerger(
+			"dan200.computercraft.shared.util.WorldUtil",
+			"org.squiddev.unborked.core.patch.WorldUtil_Patch"
+		));
 
 		patches.add(new ItemCableSounds());
 

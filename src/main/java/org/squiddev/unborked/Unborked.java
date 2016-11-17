@@ -12,7 +12,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(
 	modid = "unborked", name = "Unborked",
 	version = "${mod_version}",
-	dependencies = "required-after:ComputerCraft@[${cc_version},);after:CCTurtle"
+	dependencies = "required-after:ComputerCraft@[${cc_version},);after:CCTurtle",
+	acceptableRemoteVersions = "1.0.*"
 )
 public class Unborked {
 	@SidedProxy(
