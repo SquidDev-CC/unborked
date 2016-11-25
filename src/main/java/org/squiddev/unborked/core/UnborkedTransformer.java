@@ -39,6 +39,10 @@ public class UnborkedTransformer implements IClassTransformer {
 			"dan200.computercraft.shared.util.WorldUtil",
 			"org.squiddev.unborked.core.patch.WorldUtil_Patch"
 		));
+		patches.add(new ClassMerger(
+			"dan200.computercraft.shared.turtle.core.TurtlePlaceCommand",
+			"org.squiddev.unborked.core.patch.TurtlePlaceCommand_Patch"
+		));
 
 		patches.add(new ItemCableSounds());
 
