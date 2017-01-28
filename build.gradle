@@ -101,6 +101,7 @@ bintray {
 		name = 'unborked'
 		licenses = ['MIT']
 		vcsUrl = 'https://github.com/SquidDev-CC/CCTweaks'
+		publish = true
 
 		version {
 			name = project.version
