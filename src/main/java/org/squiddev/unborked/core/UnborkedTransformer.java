@@ -60,6 +60,10 @@ public class UnborkedTransformer implements IClassTransformer {
 			"dan200.computercraft.shared.media.items.ItemPrintout",
 			"org.squiddev.unborked.core.patch.ItemPrintout_Patch"
 		));
+		patches.add(new ClassMerger(
+			"dan200.computercraft.shared.computer.core.ServerComputer",
+			"org.squiddev.unborked.core.patch.ServerComputer_Patch"
+		));
 		patches.addBoth(new ClassReplacer(
 			"dan200.computercraft.shared.media.inventory.ContainerHeldItem",
 			"org.squiddev.unborked.core.patch.ContainerHeldItem_Rewrite"
