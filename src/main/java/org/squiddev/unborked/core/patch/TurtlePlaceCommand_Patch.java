@@ -35,14 +35,14 @@ public class TurtlePlaceCommand_Patch extends TurtlePlaceCommand {
 		final BlockPos position = turtle.getPosition();
 		Vec3d turtlePos = new Vec3d(turtlePlayer.posX, turtlePlayer.posY, turtlePlayer.posZ);
 		Vec3d rayDir = turtlePlayer.getLook(1.0F);
-		Pair hit = WorldUtil.rayTraceEntities(world, turtlePos, rayDir, 1.5D);
+		Pair<Entity, Vec3d> hit = WorldUtil.rayTraceEntities(world, turtlePos, rayDir, 1.5D);
 		if (hit == null) {
 			return stack;
 		} else {
 			ItemStack stackCopy = stack.copy();
 			turtlePlayer.loadInventory(stackCopy);
-			Entity hitEntity = (Entity) hit.getKey();
-			Vec3d hitPos = (Vec3d) hit.getValue();
+			Entity hitEntity = hit.getKey();
+			Vec3d hitPos = hit.getValue();
 			ComputerCraft.setEntityDropConsumer(hitEntity, new IEntityDropConsumer() {
 				public void consumeDrop(Entity entity, ItemStack drop) {
 					ItemStack remainder = InventoryUtil.storeItems(drop, turtle.getInventory(), 0, turtle.getInventory().getSizeInventory(), turtle.getSelectedSlot());
