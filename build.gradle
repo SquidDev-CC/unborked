@@ -52,7 +52,7 @@ dependencies {
 	provided files("lib/ComputerCraft${project.cc_version}.jar")
 	runtime "ComputerCraft:ComputerCraft:${project.cc_version}"
 
-	shade('org.squiddev:Patcher:1.2.3') { exclude group: 'org.ow2.asm' }
+	shade('org.squiddev:Patcher:1.2.4') { exclude group: 'org.ow2.asm' }
 }
 
 jar {
@@ -96,6 +96,7 @@ bintray {
 	user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
 	key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
 	publications = ['mavenJava']
+	publish = true
 	pkg {
 		repo = 'maven'
 		name = 'unborked'
