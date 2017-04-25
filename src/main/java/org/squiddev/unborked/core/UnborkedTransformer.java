@@ -3,6 +3,7 @@ package org.squiddev.unborked.core;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.squiddev.patcher.Logger;
 import org.squiddev.patcher.transformer.ClassMerger;
+import org.squiddev.patcher.transformer.ClassReplacer;
 import org.squiddev.patcher.transformer.TransformationChain;
 
 import java.io.*;
@@ -50,6 +51,18 @@ public class UnborkedTransformer implements IClassTransformer {
 		patches.add(new ClassMerger(
 			"dan200.computercraft.shared.proxy.ComputerCraftProxyCommon",
 			"org.squiddev.unborked.core.patch.ComputerCraftProxyCommon_Patch"
+		));
+		patches.add(new ClassMerger(
+			"dan200.computercraft.shared.pocket.items.ItemPocketComputer",
+			"org.squiddev.unborked.core.patch.ItemPocketComputer_Patch"
+		));
+		patches.add(new ClassMerger(
+			"dan200.computercraft.shared.media.items.ItemPrintout",
+			"org.squiddev.unborked.core.patch.ItemPrintout_Patch"
+		));
+		patches.addBoth(new ClassReplacer(
+			"dan200.computercraft.shared.media.inventory.ContainerHeldItem",
+			"org.squiddev.unborked.core.patch.ContainerHeldItem_Rewrite"
 		));
 
 		patches.add(new ItemCableSounds());
