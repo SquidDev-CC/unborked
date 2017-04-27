@@ -33,6 +33,7 @@ minecraft {
 }
 
 repositories {
+	jcenter();
 	ivy {
 		artifactPattern "http://addons-origin.cursecdn.com/files/2311/39/[module][revision](.[ext])"
 	}
